@@ -70,7 +70,9 @@ class BlocksController extends AppController {
             $this->data['Block']['visibility_paths'] = $this->Block->encodeData(explode("\n", $this->data['Block']['visibility_paths']));
             if ($this->Block->save($this->data)) {
                 $this->Session->setFlash(__('The Block has been saved', true), 'default', array('class' => 'success'));
-                if (! isset($this->params['form']['apply'])) {
+                if (isset($this->params['form']['apply'])) {
+                    $this->redirect(array('action'=>'edit', $id));
+                } else {
                     $this->redirect(array('action'=>'index'));
                 }
             } else {
